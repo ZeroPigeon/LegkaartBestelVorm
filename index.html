@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPS-huise Legkaart Bestelvorm</title>
+        
+    <style>
+
+        * {
+    box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 15px;
+        background: linear-gradient(135deg, #f7f4f1, #ffffff);
+        color: #2b2b2b;
+        line-height: 1.4;
+    }
+
+    /* MAIN CONTAINER */
+    .formContainer {
+        max-width: 1100px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    /* HEADINGS */
+    h1 {
+    font-size: clamp(22px, 4vw, 34px);
+    font-weight: 800;
+    color: #954425ff;
+    border-bottom: 4px solid #e9852cff;
+    text-align: center;
+    letter-spacing: 1px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    }
+
+    /* SECTION TITLES */
+    .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #954425ff, #b85a2a);
+    color: #fff;
+    padding: 12px 15px;
+    margin: 35px 0 15px 0;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    /* DESCRIPTION */
+    .Description {
+    text-align: center;
+    padding: 10px 5px;
+    font-size: 14px;
+    color: #444;
+    }
+
+    /* LOGO */
+    .LogoImage img {
+    border-radius: 10px;
+    margin: 10px 0;
+    }
+
+    /* TABLES */
+    .table-container {
+    width: 100%;
+    overflow-x: auto;
+    }
+
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+
+    th {
+    background: #e9852cff;
+    color: #fff;
+    padding: 12px;
+    font-size: 14px;
+    text-align: center;
+    }
+
+    td {
+    border: 1px solid #f0d3bf;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 13px;
+    }
+
+    /* SELECTS + INPUTS */
+    select, input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    transition: 0.2s ease;
+    background: #fff;
+    }
+
+    select:focus, input:focus {
+    border-color: #e9852cff;
+    box-shadow: 0 0 0 3px rgba(233,133,44,0.15);
+    }
+
+    /* PRICE ROW */
+    #price-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    font-weight: bold;
+    margin: 10px 0;
+    font-size: 16px;
+    }
+
+    #price-row p {
+    margin: 0;
+    }
+
+    /* ORDER ADDER */
+    .OrderAdder {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    }
+
+    /* BUTTONS */
+    button {
+    background: #954425ff;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    max-width: 250px;
+    }
+
+    button:hover {
+    background: #b85a2a;
+    transform: translateY(-1px);
+    }
+
+    button:disabled {
+    background: #c9c9c9;
+    cursor: not-allowed;
+    transform: none;
+    }
+
+    /* POPUP */
+    .popupWindow {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    }
+
+    .popupWindow img {
+    width: min(90%, 420px);
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 34px;
+    cursor: pointer;
+    color: white;
+    transition: 0.2s;
+    }
+
+    .close-btn:hover {
+    color: #e9852cff;
+    }
+
+    /* USER INFO SECTION */
+    .infoRow {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+    }
+
+    .UserInfo label {
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 5px;
+    display: block;
+    }
+
+    /* BANK INFO */
+    #Bankbesonderhede {
+    margin-top: 30px;
+    padding: 15px;
+    background: #fff7f2;
+    border-left: 4px solid #e9852cff;
+    border-radius: 8px;
+    font-size: 14px;
+    }
+
+    #OrderEditor {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+    body {
+    padding: 10px;
+    }
+
+    .formContainer {
+    padding: 15px;
+    }
+
+    table {
+    min-width: 500px;
+    }
+
+    td, th {
+    font-size: 12px;
+    padding: 8px;
+    }
+
+    .section-title {
+    font-size: 15px;
+    }
+
+    button {
+    max-width: 100%;
+    }
+    }
+
+    @media (max-width: 480px) {
+    h1 {
+    font-size: 20px;
+    }
+
+    .Description {
+    font-size: 13px;
+    }
+
+    table {
+    min-width: 450px;
+    }
+
+    #price-row {
+    font-size: 14px;
+    }
+
+    }   
+
+    .qty-input {
+        max-width: 120px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .form-select {
+        background: #fff;
+        border-radius: 6px;
+        padding: 9px;
+        transition: 0.2s ease;
+    }
+
+    .form-select:hover {
+        border-color: #b85a2a;
+    }
+
+    .price-display {
+        font-size: 16px;
+        font-weight: 700;
+        color: #954425ff;
+        padding: 6px 10px;
+        border-radius: 6px;
+        display: inline-block;
+    }
+
+    .btn-add {
+        background: linear-gradient(135deg, #954425ff, #b85a2a);
+        max-width: 220px;
+    }
+
+    .btn-add:hover {
+        transform: scale(1.03);
+    }
+
+    .field-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #444;
+        margin-top: 8px;
+    }
+
+    .input-card {
+        background: #fff7f2;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #f0d3bf;
+    }
+
+    .btn-submit {
+        background: linear-gradient(135deg, #e9852cff, #954425ff);
+        font-size: 16px;
+        padding: 14px;
+        max-width: 100%;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+    }
+
+    .error-msg {
+        font-size: 12px;
+        color: #d93025;
+        margin-top: 4px;
+        min-height: 14px;
+    }
+
+    .input-error {
+        border: 1px solid #d93025 !important;
+        background: #fff5f5;
+    }
+
+    .input-success {
+        border: 1px solid #2e7d32 !important;
+    }
+
+    .checkbox-card {
+        margin: 15px 0;
+        padding: 12px 15px;
+        background: #fff7f2;
+        border: 1px solid #f0d3bf;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        transition: 0.2s ease;
+    }
+
+    .checkbox-card:hover{
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .checkbox-card span {
+        max-width: 40%;
+        width: 100%;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #444;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .checkbox-label input[type=".checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: #954425ff;
+        cursor: pointer;
+    }
+
+    .checkbox-card:has(input:checked) {
+        border-color: #954425ff;
+        background: #fff2ea;
+    }    
+
+</style>
+
+</head>
+<body>
+
+    <div class="formContainer" id="formContainer">
+
+            <h1 class="title-section">DPS-HUISE LEGKAART BESTELVORM</h1>
+            <div class="LogoImage">
+                <img src="http://pleegsorg.org.za/wp-content/uploads/sites/5/2025/08/cropped-Bylae-E-Voorgestelde-logo.png" alt="Logo" width="100" height="100">
+            </div>
+
+        
+        <p class="Description">Hoe die bestelvorm werk: <br>
+            Daar is 4 ouderdoms groepe. By elke ouderdoms groep kan u die: Tema, grootte en stukke kies van die legkaart. Elke afdeling het `n aftreklys met verskillende opsies. Die prys van die geselekteerde legkaart sal verskyn onder aan die tabel, waar u ook dan die hoeveelheid kan spesifiseer. Wanneer u tevrede is met u seleksie moet u die "voeg seleksie by" knoppie druk. `n Uiteensetting van u bestelling sal aan die onderkant van hierdie bestelvorm verskyn. Wanneer u bestelling voltooi is kan u `n elektroniese betaling doen. (Bankbesonderhede onder aan die vorm voorsien) Druk dan die "Stuur bestelling" knoppie. Die bestelling gaan oopmaak in u E-pos stelsel met `n volledige uiteensetting van u bestelling. Heg dan die bewys van betaling aan die E-pos en stuur. <B>Probeer asseblief vermy om enige van die inligting wat klaar op die E-pos is te verander of uit te vee.</B><br><i>Die tabelle kan na reg beweeg.</i>
+
+        </p>
+
+        <!--18 Maande tot 3 jaar begin-->
+
+        <div class="section-title">18 Maande tot 3 Jaar</div>
+
+            <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tema</th>
+                        <th>Grootte</th>
+                        <th>Stukke</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><select class="form-select" id="18m_3j_Tema">
+                            <option value="">-- Kies `n Tema --</option>
+                            <option value="Noag">Noag</option>
+                            <option value="Skepping">Skepping</option>
+                        </select></td>
+                        <td><select class="form-select" id="18m_3j_Grootte">
+                            <option value="">-- Kies `n Legkaart Grootte --</option>
+                        </select></td>
+                        <td><select class="form-select" id="18m_3j_Stukke">
+                            <option value="">-- Kies Stuk Telling --</option>
+                        </select></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+
+            <div id="price-row"><p>Prys: R </p><p id="selected-price_18m_3j" class="price-display">--</p></div>
+            <label class="field-label">Hoeveelheid Legkaarte:</label>
+            <div class="OrderAdder"><input type="number" id="OrderNumber_18m_3j" min="0" value="0" class="qty-input"><button onclick="FirstAgeGroupSubmit()" id="AddOrder_18m_3j" class="btn-add">Voeg seleksie by</button></div>
+
+        <!--3 jaar tot 9 jaar begin-->
+
+            <div id="popupWindow" class="popupWindow">
+                <span class="close-btn" id="closePopup">&times;</span>
+                <img id="popupImage" src="/Images/Skepping_A4.jpeg">
+                
+            </div>
+        
+        
+        <div class="section-title">Voorskools (3jr) tot Graad 3 (9jr)</div>
+
+            <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tema</th>
+                        <th>Grootte</th>
+                        <th>Stukke</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><select class="form-select" id="3j_9j_Tema">
+                            <option value="">-- Kies `n Tema --</option>
+                            <option value="Daniel_in_die_leeukuil">Daniel in die leeukuil</option>
+                            <option value="Jesus_maak_die_storm_stil">Jesus maak die storm stil</option>
+                            <option value="Jesus_word_gedoop">Jesus word gedoop</option>
+                            <option value="Moses_in_die_mandjie">Moses in die mandjie</option>
+                            <option value="Huis_gebou_op_sand_en_klip">Huis gebou op sand en klip</option>
+                            <option value="Jesus_se_geboorte">Jesus se geboorte</option>
+                            <option value="Moses_en_Israeliete_deur_die_see">Moses en Israeliete deur die see</option>
+                            <option value="Josef">Josef</option>
+                            <option value="Nagmaal">Nagmaal</option>
+                            <option value="Jerigo_se_mure_val_in">Jerigo se mure val in</option>
+                        </select></td>
+                        <td><select class="form-select" id="3j_9j_Grootte">
+                            <option value="">-- Kies `n Legkaart Grootte --</option>
+                        </select></td>
+                        <td><select class="form-select" id="3j_9j_Stukke">
+                            <option value="">-- Kies Stuk Telling --</option>
+                        </select></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            
+            <div id="price-row"><p>Prys: R </p><p id="selected-price_3j_9j" class="price-display">--</p></div>
+            <label class="field-label">Hoeveelheid Legkaarte:</label>
+            <div class="OrderAdder"><input type="number" id="OrderNumber_3j_9j" min="0" value="0" class="qty-input"><button onclick="SecondAgeGroupSubmit()" id="AddOrder_3j_9j" class="btn-add">Voeg seleksie by</button></div>
+
+        <!--10 jaar tot 12 jaar begin-->
+
+        <div class="section-title">Graad 4 (10jr) tot Graad 6 (12jr)</div>
+
+            <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tema</th>
+                        <th>Grootte</th>
+                        <th>Stukke</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><select class="form-select" id="10j_12j_Tema">
+                            <option value="">-- Kies `n Tema --</option>
+                            <option value="Skepping">Skepping</option>
+                            <option value="Jona">Jona</option>
+                            <option value="Noag">Noag</option>
+                            <option value="Geboorte_van_Jesus">Geboorte van Jesus</option>
+                        </select></td>
+                        <td><select class="form-select" id="10j_12j_Grootte">
+                            <option value="">-- Kies `n Legkaart Grootte --</option>
+                        </select></td>
+                        <td><select id="10j_12j_Stukke">
+                            <option class="form-select" value="">-- Kies Stuk Telling --</option>
+                        </select></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            
+            <div id="price-row"><p>Prys: R </p><p id="selected-price_10j_12j" class="price-display">--</p></div>
+            <label class="field-label">Hoeveelheid Legkaarte:</label>
+            <div class="OrderAdder"><input type="number" id="OrderNumber_10j_12j" min="0" value="0" class="qty-input"><button onclick="ThirdAgeGRoupSubmit()" id="AddOrder_10j_12j" class="btn-add">Voeg seleksie by</button></div>
+
+        <!--13 jaar tot 16 jaar begin-->
+
+        <div class="section-title">Graad 7 (13jr) tot Graad 10 (16jr)</div>
+
+            <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tema</th>
+                        <th>Grootte</th>
+                        <th>Stukke</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><select class="form-select" id="13j_16j_Tema">
+                            <option value="">-- Kies `n Tema --</option>
+                            <option value="Moses_in_die_mandjie">Moses in die mandjie</option>
+                            <option value="Daniel_in_die_leeukuil">Daniel in die leeukuil</option>
+                            <option value="Tien_Gebooie">10 Gebooie</option>
+                            <option value="Moses_op_berg_Sinai">Moses op berg Sinai</option>
+                        </select></td>
+                        <td>Karton Legkaarte</td>
+                        <td><select class="form-select" id="13j_16j_Stukke">
+                            <option value="">-- Kies Stuk Telling --</option>
+                        </select></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            
+            <div id="price-row"><p>Prys: R </p><p id="selected-price_13j_16j" class="price-display">--</p></div>
+            <label class="field-label">Hoeveelheid Legkaarte:</label>
+            <div class="OrderAdder"><input type="number" id="OrderNumber_13j_16j" min="0" value="0" class="qty-input"><button onclick="FourthAgeGroupSubmit()" id="AddOrder_13j_16j" class="btn-add">Voeg seleksie by</button></div>
+
+        <!--Total Section-->
+
+        <div class="section-title">Afhandeling van Bestelling</div>
+
+        <div class="table-container">
+        <table id="TotalsTable">
+            <thead>
+                <tr>
+                    <th>Ouderdoms Groep</th>
+                    <th>Tema</th>
+                    <th>Grootte</th>
+                    <th>Stuk Telling</th>
+                    <th>Hoeveel</th>
+                    <th>Eenheids Prys</th>
+                    <th>Prys</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Aflewering:</td>
+                    <td>R 80</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total:</td>
+                    <td id="TotalAmount">R 80</td>
+                </tr>
+            <tfoot>
+        </table>
+        </div>
+
+        <div id="OrderEditor">
+            <button id="ChangeOrder" onclick="ChangeOrder()">Verander</button>
+            <button id="SaveOrder" onclick="SaveOrder()">Aanvaar Veranderinge</button>
+        </div>
+
+    </div>
+
+    <div id="Bankbesonderhede">
+        <P>
+            <b>Bankbesonderhede:</b> <br>
+            <b>Naam:</b> Kinderhuise v/d NHKA <br>
+            <b>Bank:</b> ABSA <br>
+            <b>Rek no:</b> 020 390 093 <br>
+            <b>Takkode: </b> 632005 <br>
+            <b>Verwysing: </b> Naam & Van + legkaarte
+        </P>
+    </div>
+
+    <div class="checkbox-card">
+    <label class="checkbox-label">
+        <span>Het u `n bewys van betaling om aan die e-pos te heg?</span>
+        <input type="checkbox" id="BetaalBewysCheck" onclick="checkBoxClicked(this)">
+    </label>
+    </div>
+
+    <div class="infoRow">
+        <div class="UserInfo input-card">
+            <label> </label>
+            <label>Volle Naam *</label>
+            <input type="text" id="buyerName" placeholder="Johan van der Merwe" required>
+            <div class="error-msg" id="error-name"></div>
+        </div>
+        <div class="UserInfo input-card">
+            <label> </label>
+            <label>E-pos Adres *</label>
+            <input type="text" id="buyerEmail" placeholder="johan@example.com" required>
+            <div class="error-msg" id="error-email"></div>
+        </div>
+        <div class="UserInfo input-card">
+            <label> </label>
+            <label>Telefoon Nommer *</label>
+            <input type="text" id="buyerPhone" placeholder="082 123 4567" required>
+            <div class="error-msg" id="error-phone"></div>
+        </div>
+        <div class="UserInfo input-card">
+            <label>Aflewerings Adres * (U pakkie sal na u naaste PUDO kassie gestuur word)</label>
+            <input type="text" id="buyerAddress" placeholder="Jan Pierewiet Straat 120, Waverley, Pretoria, 0000" required>
+            <div class="error-msg" id="error-address"></div>
+        </div>
+    </div>
+
+    <button id="SubmitOrder" onclick="Bestelling()" class="btn-submit" disabled>Stuur Bestelling</button>
+
+    <script>
+
+        //popup references
+        const popupWindow = document.getElementById("popupWindow");
+        const popupImage = document.getElementById("popupImage");
+
+        //18 maande tot 3 jaar begin
+        //18 maande tot 3 jaar: lyste
+        const FirstAgeGroupTemas = {
+            Noag: ["Reghoek - Geperste Hout"],
+            Skepping: ["Reghoek - Geperste Hout", "A4 - Geperste Hout"]
+        };
+
+        const FirstAgeGroupStukPrys = {
+            "2x2-stuk (20x10cm)": 225,
+            "3x2-stuk (20x10cm)": 275,
+            "4x2-stuk (20x10cm)": 325,
+            "4-stuk A4": 240,
+            "6-stuk A4": 240
+        };
+
+        const FirstAgeGroupTema = document.getElementById("18m_3j_Tema");
+        const FirstAgeGroupGrootte = document.getElementById("18m_3j_Grootte");
+        const FirstAgeGroupStukke = document.getElementById("18m_3j_Stukke");
+
+        //18 maande tot 3 jaar: Tema function => Puzzle grootte
+        FirstAgeGroupTema.addEventListener("change", function () {
+            const selectedValue = this.value;
+            const selectedPrice = document.getElementById("selected-price_18m_3j");
+            const AmountSelected = document.getElementById("OrderNumber_18m_3j");
+
+            FirstAgeGroupGrootte.innerHTML = '<option value="">-- Kies `n Legkaart Grootte --</option>';
+            FirstAgeGroupStukke.innerHTML = '<option value="">-- Kies Stuk Telling --</option>';
+
+            selectedPrice.textContent = '--';
+            AmountSelected.value = 0;
+ 
+            if (!selectedValue) return;    
+
+            FirstAgeGroupTemas[selectedValue].forEach(item => {
+                const option = document.createElement("option");
+                option.value = item.replace(/[\s-]/g, "");
+                option.textContent = item;
+                FirstAgeGroupGrootte.appendChild(option);
+            });
+
+        });
+
+        //18 maande tot 3 jaar: Grootte function => Puzzle stukke
+        FirstAgeGroupGrootte.addEventListener("change", function () {
+            const selectedValue = this.value;
+            const selectedPrice = document.getElementById("selected-price_18m_3j");
+            const AmountSelected = document.getElementById("OrderNumber_18m_3j");
+
+            FirstAgeGroupStukke.innerHTML = '<option value="">-- Kies Stuk Telling --</option>';
+
+            selectedPrice.textContent = '--';
+            AmountSelected.value = 0;
+ 
+            if (!selectedValue) return;
+
+            if (FirstAgeGroupTema.value == "Noag" && selectedValue == "ReghoekGepersteHout") {
+
+                const option = document.createElement("option");
+                option.value = "2x2-stuk (20x10cm)";
+                option.textContent = "2x2-stuk (20x10cm)";
+                FirstAgeGroupStukke.appendChild(option);
+
+                const option2 = document.createElement("option");
+                option2.value = "3x2-stuk (20x10cm)";
+                option2.textContent = "3x2-stuk (20x10cm)";
+                FirstAgeGroupStukke.appendChild(option2);
+
+            }else if(FirstAgeGroupTema.value == "Skepping" && selectedValue == "ReghoekGepersteHout") {
+
+                const option = document.createElement("option");
+                option.value = "4x2-stuk (20x10cm)";
+                option.textContent = "4x2-stuk (20x10cm)";
+                FirstAgeGroupStukke.appendChild(option);
+
+            }else if (FirstAgeGroupTema.value == "Skepping" && selectedValue == "A4GepersteHout") {
+
+                const option = document.createElement("option");
+                option.value = "4-stuk A4";
+                option.textContent = "4-stuk A4";
+                FirstAgeGroupStukke.appendChild(option);
+
+                const option2 = document.createElement("option");
+                option2.value = "6-stuk A4";
+                option2.textContent = "6-stuk A4";
+                FirstAgeGroupStukke.appendChild(option2);
+
+            }
+
+        });
+
+        //18 maande tot 3 jaar: Puzzle Stuk function => Prys vir puzzle stukke
+        FirstAgeGroupStukke.addEventListener("change", function () {
+            const selectedValue = this.value;
+            const PriceValue = document.getElementById("selected-price_18m_3j");
+            const AmountSelection = document.getElementById("OrderNumber_18m_3j");
+
+            PriceValue.textContent = '--';
+            AmountSelection.value = 0;
+ 
+            if (!selectedValue) return;
+
+            PriceValue.textContent = FirstAgeGroupStukPrys[selectedValue];
+            AmountSelection.value = 1;
+
+            let newValue = "";
+
+            if (selectedValue.includes("(20x10cm)"))
+            {
+                newValue = selectedValue.replace("-stuk (20x10cm)", "");
+            }else if (selectedValue.includes("A4"))
+            {
+                newValue = selectedValue.replace("-stuk A4", "");
+            }
+
+            const imagePath = "http://pleegsorg.org.za/wp-content/uploads/sites/5/2026/04/B_" + FirstAgeGroupTema.value + "_" + newValue + ".jpeg";
+
+            popupImage.src = imagePath;
+            popupWindow.style.display = "flex";
+
+        });
+
+        //18 maande tot 3 jaar function:
+        function FirstAgeGroupSubmit() {
+
+            const AmountSelected = document.getElementById("OrderNumber_18m_3j");
+            const PriceValue = document.getElementById("selected-price_18m_3j");
+            const TotalAmount = document.getElementById("TotalAmount");
+            const Table = document.getElementById("TotalsTable").getElementsByTagName("tbody")[0];
+
+            let Total = parseFloat(TotalAmount.textContent.replace("R ", "")) || 0;
+            let price = parseFloat(PriceValue.textContent) || 0;
+            let Amount = parseInt(AmountSelected.value) || 0;
+
+            const newRow = Table.insertRow();
+
+            const OuderdomsGroep = newRow.insertCell(0);
+            const Tema = newRow.insertCell(1);
+            const Grootte = newRow.insertCell(2);
+            const StukTelling = newRow.insertCell(3);
+            const Hoeveelheid = newRow.insertCell(4);
+            Hoeveelheid.className = "editable";
+            const EendheidsPrys = newRow.insertCell(5);
+            EendheidsPrys.className = "value";
+            const Prys = newRow.insertCell(6);
+            Prys.className = "priceEdit";
+
+            if (FirstAgeGroupTema[FirstAgeGroupTema.selectedIndex].textContent.includes("-- Kies `n Tema --")) 
+            {   
+                
+                alert("Kies `n Tema om voort te gaan");
+                return;
+
+            }
+
+            if (FirstAgeGroupGrootte[FirstAgeGroupGrootte.selectedIndex].textContent.includes("-- Kies `n Legkaart Grootte --"))
+            {
+
+                alert("Kies `n Legkaart Grootte om voort te gaan");
+                return;
+
+            }
+
+            if (FirstAgeGroupStukke[FirstAgeGroupStukke.selectedIndex].textContent.includes("-- Kies Stuk Telling --"))
+            {
+
+                alert("Kies die hoeveelheid stukke vir die legkaart om voort te gaan");
+                return;
+
+            }
+
+            OuderdomsGroep.innerHTML = '18 maande tot 3 jaar';
+            Tema.innerHTML = FirstAgeGroupTema[FirstAgeGroupTema.selectedIndex].textContent;
+            Grootte.innerHTML = FirstAgeGroupGrootte[FirstAgeGroupGrootte.selectedIndex].textContent;
+            
+            let stuk_telling = FirstAgeGroupStukke[FirstAgeGroupStukke.selectedIndex].textContent;
+
+            if (stuk_telling.includes("A4"))
+            {
+                stuk_telling = stuk_telling.replace(" A4", "");
+            }
+
+            StukTelling.innerHTML = stuk_telling;
+            Hoeveelheid.innerHTML = AmountSelected.value;
+            EendheidsPrys.innerHTML = "R " + PriceValue.textContent;
+            Prys.innerHTML = "R " + (price * Amount);
+
+            FirstAgeGroupTema.selectedIndex = 0;
+            FirstAgeGroupGrootte.innerHTML = '<option value="">-- Kies `n Legkaart Grootte --</option>';
+            FirstAgeGroupStukke.innerHTML = '<option value="">-- Kies Stuk Telling --</option>';
+
+            PriceValue.textContent = '--';
+            AmountSelected.value = 0;
+
+            TotalAmount.textContent = "R " + (Total + (price * Amount));
+
+        }
+
+        //3 jaar tot 9 jaar begin
+        //3 jaar tot 9 jaar: Lyste
+        const SecondAgeGroupTemas = {
+            Daniel_in_die_leeukuil: ["Vierkant (20x20cm) - Geperste Hout"],
+            Jesus_maak_die_storm_stil: ["Vierkant (20x20cm) - Geperste Hout"],
+            Jesus_word_gedoop: ["Vierkant (20x20cm) - Geperste Hout"],
+            Moses_in_die_mandjie: ["Vierkant (20x20cm) - Geperste Hout"],
+            Huis_gebou_op_sand_en_klip: ["Vierkant (20x20cm) - Geperste Hout"],
+            Jesus_se_geboorte: ["A4 - Geperste Hout", "A5 - Geperste Hout"],
+            Moses_en_Israeliete_deur_die_see: ["A4 - Geperste Hout", "A5 - Geperste Hout"],
+            Josef: ["A4 - Geperste Hout", "A5 - Geperste Hout"],
+            Nagmaal: ["A4 - Geperste Hout", "A5 - Geperste Hout"],
+            Jerigo_se_mure_val_in: ["A4 - Geperste Hout", "A5 - Geperste Hout"],
+        };
+
+        const SecondAgeGroupStukGrootte = {
+            VierkantGepersteHout: ["6-stuk (20x20cm)", "8-stuk (20x20cm)", "9-stuk (20x20cm)", "12-stuk (20x20cm)", "15-stuk (20x20cm)", "16-stuk (20x20cm)", "20-stuk (20x20cm)", "25-stuk (20x20cm)", "30-stuk (20x20cm)", "35-stuk (20x20cm)"],
+            A4GepersteHout: ["9-stuk A4", "12-stuk A4", "16-stuk A4", "20-stuk A4", "25-stuk A4", "30-stuk A4", "35-stuk A4", "49-stuk A4"],
+            A5GepersteHout: ["9-stuk A5", "12-stuk A5", "16-stuk A5", "20-stuk A5", "25-stuk A5"]
+        };
+
+        const SecondAgeGroupStukPrys = {
+            "6-stuk (20x20cm)": 215,
+            "8-stuk (20x20cm)": 215,
+            "9-stuk (20x20cm)": 215,
+            "12-stuk (20x20cm)": 220,
+            "15-stuk (20x20cm)": 220,
+            "16-stuk (20x20cm)": 220,
+            "20-stuk (20x20cm)": 225,
+            "25-stuk (20x20cm)": 225,
+            "30-stuk (20x20cm)": 230,
+            "35-stuk (20x20cm)": 230,
+            "9-stuk A5": 175,
+            "12-stuk A5": 180,
+            "16-stuk A5": 180,
+            "20-stuk A5": 190,
+            "25-stuk A5": 190,
+            "9-stuk A4": 240,
+            "12-stuk A4": 250,
+            "16-stuk A4": 260,
+            "20-stuk A4": 260,
+            "25-stuk A4": 265,
+            "30-stuk A4": 270,
+            "35-stuk A4": 275,
+            "49-stuk A4": 275,
+            
+        }
+
+        const SecondAgeGroupTema = document.getElementById("3j_9j_Tema");
+        const SecondAgeGroupGrootte = document.getElementById("3j_9j_Grootte");
+        const SecondAgeGroupStukke = document.getElementById("3j_9j_Stukke");
+
+        //3 jaar tot 9 jaar: Tema function => Puzzle grootte
+        SecondAgeGroupTema.addEventListener("change", function () {
+            const selectedValue = this.value;
+            const selectedPrice = document.getElementById("selected-price_3j_9j");
+            const AmountSelected = document.getElementById("OrderNumber_3j_9j");
+
+            SecondAgeGroupGrootte.innerHTML = '<option value="">-- Kies `n Legkaart Grootte --</option>';
+            SecondAgeGroupStukke.innerHTML = '<option value="">-- Kies Stuk Telling --</option>';
+            
+            selectedPrice.textContent = '--';
+            AmountSelected.value = 0;
+ 
+            if (!selectedValue) return;
+            
+            SecondAgeGroupTemas[selectedValue].forEach(item => {
+                const option = document.createElement("option");            
+
+                if (item == "Vierkant (20x20cm) - Geperste Hout") 
+                {
+
+                    option.value = item.replace("(20x20cm)", "").replace(/[\s-]/g, "");
+                    
+
+                }else {
+
+                    option.value = item.replace(/[\s-]/g, "");
+
+                }
+
+                option.textContent = item;
+                SecondAgeGroupGrootte.appendChild(option);
+            });
+
+        });
+
+        //3 jaar tot 9 jaar: Grootte function => Puzzle stukke
+        SecondAgeGroupGrootte.addEventListener("change", function () {
+            const selectedValue = this.value;
+            const selectedPrice = document.getElementById("selected-price_3j_9j");
+            const AmountSelected = document.getElementById("OrderNumber_3j_9j");
+
+            SecondAgeGroupStukke.innerHTML = '<option value="">-- Kies Stuk Telling --</option>';
+
+            selectedPrice.textContent = '--';
+            AmountSelected.value = 0;
+ 
+            if (!selectedValue) return; 
+                
+            SecondAgeGroupStukGrootte[selectedValue].forEach(item => {
+                const option = document.createElement("option");
+                option.value = item;
+                option.textContent = item;
+                SecondAgeGroupStukke.appendChild(option);
+            });
+
+        });
+
+        //3 jaar tot 9 jaar: Puzzle Stuk functin => Prys vir puzzle stukke
+        SecondAgeGroupStukke.addEventListener("change", function () {
+            const selectedValue = this.value;
+            const PriceValue = document.getElementById("selected-price_3j_9j");
+            const AmountSelection = document.getElementById("OrderNumber_3j_9j");
+
+            PriceValue.textContent = '--';
+            AmountSelection.value = 0;
+ 
+            if (!selectedValue) return;
+
+            PriceValue.textContent = SecondAgeGroupStukPrys[selectedValue];
+            AmountSelection.value = 1;
+
+            let newValue = "";
+
+            if (selectedValue.includes("(20x20cm)"))
+            {
+                newValue = selectedValue.replace("-stuk (20x20cm)", "");
+            }else if (selectedValue.includes("A4"))
+            {
+                newValue = selectedValue.replace("-stuk A4", "");
+            }else if (selectedValue.includes("A5"))
+            {
+                newValue = selectedValue.replace("-stuk A5", "");
+            }
+
+            const imagePath = "http://pleegsorg.org.za/wp-content/uploads/sites/5/2026/04/V_" + SecondAgeGroupTema.value + "_" + newValue + ".jpeg";
+
+            popupImage.src = imagePath;
+            popupWindow.style.display = "flex";
+
+        });
+
+        //3 jaar tot 9 jaar function:
+        function SecondAgeGroupSubmit () {
+
+            const AmountSelected = document.getElementById("OrderNumber_3j_9j");
+            const PriceValue = document.getElementById("selected-price_3j_9j");
+            const TotalAmount = document.getElementById("TotalAmount");
+            const Table = document.getElementById("TotalsTable").getElementsByTagName("tbody")[0];
+
+            let Total = parseFloat(TotalAmount.textContent.replace("R ", "")) || 0;
+            let price = parseFloat(PriceValue.textContent) || 0;
+            let Amount = parseInt(AmountSelected.value) || 0;
+
+            const newRow = Table.insertRow();
+
+            const OuderdomsGroep = newRow.insertCell(0);
+            const Tema = newRow.insertCell(1);
+            const Grootte = newRow.insertCell(2);
+            const StukTelling = newRow.insertCell(3);
+            const Hoeveelheid = newRow.insertCell(4);
+            Hoeveelheid.className = "editable";
+            const EendheidsPrys = newRow.insertCell(5);
+            EendheidsPrys.className = "value";
+            const Prys = newRow.insertCell(6);
+            Prys.className = "priceEdit";
+
+            if (SecondAgeGroupTema[SecondAgeGroupTema.selectedIndex].textContent.includes("-- Kies `n Tema --")) 
+            {   
+                
+                alert("Kies `n Tema om voort te gaan");
+                return;
+
+            }
+
+            if (SecondAgeGroupGrootte[SecondAgeGroupGrootte.selectedIndex].textContent.includes("-- Kies `n Legkaart Grootte --"))
+            {
+
+                alert("Kies `n Legkaart Grootte om voort te gaan");
+                return;
+
+            }
+
+            if (SecondAgeGroupStukke[SecondAgeGroupStukke.selectedIndex].textContent.includes("-- Kies Stuk Telling --"))
+            {
+
+                alert("Kies die hoeveelheid stukke vir die legkaart om voort te gaan");
+                return;
+
+            }
+
+            OuderdomsGroep.innerHTML = '3 jaar tot 9 jaar';
+            Tema.innerHTML = SecondAgeGroupTema[SecondAgeGroupTema.selectedIndex].textContent;
+            Grootte.innerHTML = SecondAgeGroupGrootte[SecondAgeGroupGrootte.selectedIndex].textContent;
+
+            let stuk_telling = SecondAgeGroupStukke[SecondAgeGroupStukke.selectedIndex].textContent;
+
+            if (stuk_telling.includes("(20x20cm)"))
+            {
+                stuk_telling = stuk_telling.replace("(20x20cm)", "");
+
+            }else if (stuk_telling.includes("A4"))
+            {
+                stuk_telling = stuk_telling.replace(" A4", "");
+
+            }else if (stuk_telling.includes("A5")) 
+            {
+                stuk_telling = stuk_telling.replace(" A5", "");    
+            }
+
+            StukTelling.innerHTML = stuk_telling;
+            Hoeveelheid.innerHTML = AmountSelected.value;
+            EendheidsPrys.innerHTML = "R " + PriceValue.textContent;
+            Prys.innerHTML = "R " + (price * Amount);
+
+            SecondAgeGroupTema.selectedIndex = 0;
+            SecondAgeGroupGrootte.innerHTML = '<option value="">-- Kies `n Legkaart Grootte --</option>';
+            SecondAgeGroupStukke.innerHTML = '<option value="">-- Kies Stuk Telling --</option>';
+
+            PriceValue.textContent = '--';
+            AmountSelected.value = 0;
+
+            TotalAmount.textContent = "R " + (Total + (price * Amount));
+
+        }
+        
+        //10 jaar tot 12 jaar begin
+        //10 jaar tot 12 jaar: Lyste
+        const ThirdAgeGroupTemas = {
+            Skepping: ["A4 - Geperste Hout", "Karton Legkaarte"],
+            Jona: ["A4 - Geperste Hout", "Karton Legkaarte"],
+            Noag: ["A4 - Geperste Hout", "Karton Legkaarte"],
+            Geboorte_van_Jesus: ["A4 - Geperste Hout", "Karton Legkaarte"]
+        };
+
+        const ThirdAgeGroupStukGrootte = {
+            A4GepersteHout: ["20-stuk A4", "25-stuk A4", "30-stuk A4", "35-stuk A4", "36-stuk A4", "48-stuk A4", "49-stuk A4"],
+            KartonLegkaarte: ["80-stuk (A5)", "120-stuk (A4)"]
+        };
+
+        const ThirdAgeGroupStukPrys = {
+            "20-stuk A4": 260,
+            "25-stuk A4": 265,
+            "30-stuk A4": 270,
+            "35-stuk A4": 275,
+            "36-stuk A4": 275,
+            "48-stuk A4": 275,
+            "49-stuk A4": 275,
+            "80-stuk (A5)": 150,
+            "120-stuk (A4)": 200
+        };
+
+        const ThirdAgeGroupTema = document.getElementById("10j_12j_Tema");
+        const ThirdAgeGroupGrootte = document.getElementById("10j_12j_Grootte");
+        const ThirdAgeGroupStukke = document.getElementById("10j_12j_Stukke");
+
+        //10 jaar tot 12 jaar: Tema function => Puzzle grootte
+        ThirdAgeGroupTema.addEventListener("change", function () {
+            const selectedValue = this.value;
+            const selectedPrice = document.getElementById("selected-price_10j_12j");
+            const AmountSelected = document.getElementById("OrderNumber_10j_12j");
+
+            ThirdAgeGroupGrootte.innerHTML = '<option value="">-- Kies `n Legkaart Grootte --</option>';
+            ThirdAgeGroupStukke.innerHTML = '<option value="">-- Kies Stuk Telling --</option>';
+
+            selectedPrice.textContent = '--';
+            AmountSelected.value = 0;
+ 
+            if (!selectedValue) return;               
+
+            ThirdAgeGroupTemas[selectedValue].forEach(item => {
+                const option = document.createElement("option");
+                option.value = item.replace(/[\s-]/g, "");
+                option.textContent = item;
+                ThirdAgeGroupGrootte.appendChild(option);
+            });
+
+        });
+
+        //10 jaar tot 12 jaar: Grootte function => Puzzle stukke
+        ThirdAgeGroupGrootte.addEventListener("change", function () {
+            const selectedValue = this.value;
+            const selectedPrice = document.getElementById("selected-price_10j_12j");
+            const AmountSelected = document.getElementById("OrderNumber_10j_12j");
+
+            ThirdAgeGroupStukke.innerHTML = '<option value="">-- Kies Stuk Telling --</option>';
+
+            selectedPrice.textContent = '--';
+            AmountSelected.value = 0;
+ 
+            if (!selectedValue) return;
+
+            ThirdAgeGroupStukGrootte[selectedValue].forEach(item => {
+                const option = document.createElement("option");
+                option.value = item;
+                option.textContent = item;
+                ThirdAgeGroupStukke.appendChild(option);
+            });
+
+        });
+
+        //10 jaar tot 12 jaar: Puzzle Stuk function => Prys vir puzzle stukke
+        ThirdAgeGroupStukke.addEventListener("change", function () {
+            const selectedValue = this.value;
+            const PriceValue = document.getElementById("selected-price_10j_12j");
+            const AmountSelection = document.getElementById("OrderNumber_10j_12j");
+
+            PriceValue.textContent = '--';
+            AmountSelection.value = 0;
+ 
+            if (!selectedValue) return;
+
+            PriceValue.textContent = ThirdAgeGroupStukPrys[selectedValue];
+            AmountSelection.value = 1;
+
+            let newValue = "";
+
+            if (selectedValue.includes("(A4)"))
+            {
+                newValue = selectedValue.replace("-stuk (A4)", "");
+            }else if (selectedValue.includes("(A5)"))
+            {
+                newValue = selectedValue.replace("-stuk (A5)", "");
+
+            }else if (selectedValue.includes("A4"))
+            {
+                newValue = selectedValue.replace("-stuk A4", "");
+            }
+
+            const imagePath = "http://pleegsorg.org.za/wp-content/uploads/sites/5/2026/04/M_" + ThirdAgeGroupTema.value + "_" + newValue + ".jpeg";
+
+            popupImage.src = imagePath;
+            popupWindow.style.display = "flex";
+
+        });
+
+        //10 jaar tot 12 jaar function:
+        function ThirdAgeGRoupSubmit () {
+
+            const AmountSelected = document.getElementById("OrderNumber_10j_12j");
+            const PriceValue = document.getElementById("selected-price_10j_12j");
+            const TotalAmount = document.getElementById("TotalAmount");
+            const Table = document.getElementById("TotalsTable").getElementsByTagName("tbody")[0];
+
+            let Total = parseFloat(TotalAmount.textContent.replace("R ", "")) || 0;
+            let price = parseFloat(PriceValue.textContent) || 0;
+            let Amount = parseInt(AmountSelected.value) || 0;
+
+            const newRow = Table.insertRow();
+
+            const OuderdomsGroep = newRow.insertCell(0);
+            const Tema = newRow.insertCell(1);
+            const Grootte = newRow.insertCell(2);
+            const StukTelling = newRow.insertCell(3);
+            const Hoeveelheid = newRow.insertCell(4);
+            Hoeveelheid.className = "editable";
+            const EendheidsPrys = newRow.insertCell(5);
+            EendheidsPrys.className = "value";
+            const Prys = newRow.insertCell(6);
+            Prys.className = "priceEdit";
+
+            if (ThirdAgeGroupTema[ThirdAgeGroupTema.selectedIndex].textContent.includes("-- Kies `n Tema --")) 
+            {   
+                
+                alert("Kies `n Tema om voort te gaan");
+                return;
+
+            }
+
+            if (ThirdAgeGroupGrootte[ThirdAgeGroupGrootte.selectedIndex].textContent.includes("-- Kies `n Legkaart Grootte --"))
+            {
+
+                alert("Kies `n Legkaart Grootte om voort te gaan");
+                return;
+
+            }
+
+            if (ThirdAgeGroupStukke[ThirdAgeGroupStukke.selectedIndex].textContent.includes("-- Kies Stuk Telling --"))
+            {
+
+                alert("Kies die hoeveelheid stukke vir die legkaart om voort te gaan");
+                return;
+
+            }
+
+            OuderdomsGroep.innerHTML = '10 jaar tot 12 jaar';
+            Tema.innerHTML = ThirdAgeGroupTema[ThirdAgeGroupTema.selectedIndex].textContent;
+            Grootte.innerHTML = ThirdAgeGroupGrootte[ThirdAgeGroupGrootte.selectedIndex].textContent;
+            let stuk_telling = ThirdAgeGroupStukke[ThirdAgeGroupStukke.selectedIndex].textContent;
+            
+            if (stuk_telling.includes("(A5)"))
+            {   
+
+                stuk_telling = stuk_telling.replace(" (A5)", "");
+
+            }else if (stuk_telling.includes("(A4)"))
+            {
+
+                stuk_telling = stuk_telling.replace(" (A4)", "");
+
+            }else if (stuk_telling.includes("A4"))
+            {
+
+                stuk_telling = stuk_telling.replace(" A4", "");
+
+            }
+
+            StukTelling.innerHTML = stuk_telling;
+            Hoeveelheid.innerHTML = AmountSelected.value;
+            EendheidsPrys.innerHTML = "R " + PriceValue.textContent;
+            Prys.innerHTML = "R " + (price * Amount);
+
+            ThirdAgeGroupTema.selectedIndex = 0;
+            ThirdAgeGroupGrootte.innerHTML = '<option value="">-- Kies `n Legkaart Grootte --</option>';
+            ThirdAgeGroupStukke.innerHTML = '<option value="">-- Kies Stuk Telling --</option>';
+
+            PriceValue.textContent = '--';
+            AmountSelected.value = 0;
+
+            TotalAmount.textContent = "R " + (Total + (price * Amount));
+
+        }
+
+        //13 jaar tot 16 jaar begin
+        //13 jaar tot 16 jaar: Lyste
+        const FourthAgeGroupTemas = {
+            Moses_in_die_mandjie: ["80-stuk (A5)", "120-stuk (A4)"],
+            Daniel_in_die_leeukuil: ["80-stuk (A5)", "120-stuk (A4)"],
+            Tien_Gebooie: ["120-stuk (A4)"],
+            Moses_op_berg_Sinai: ["80-stuk (A5)", "120-stuk (A4)"]
+        };
+
+        const FourthAgeGroupStukPrys = {
+            "80-stuk (A5)": 150,
+            "120-stuk (A4)": 200
+        };
+
+        const FourthAgeGroupTema = document.getElementById("13j_16j_Tema");
+        const FourthAgeGroupStukke = document.getElementById("13j_16j_Stukke");
+
+        //13 jaar tot 16 jaar: Tema function => Puzzle Stukke
+        FourthAgeGroupTema.addEventListener("change", function () {
+            const selectedValue = this.value;
+            const selectedPrice = document.getElementById("selected-price_13j_16j");
+            const AmountSelected = document.getElementById("OrderNumber_13j_16j");
+
+            FourthAgeGroupStukke.innerHTML = '<option value="">-- Kies Stuk Telling --</option>';
+
+            selectedPrice.textContent = '--';
+            AmountSelected.value = 0;
+ 
+            if (!selectedValue) return;
+
+            FourthAgeGroupTemas[selectedValue].forEach(item => {
+                const option = document.createElement("option");
+                option.value = item;
+                option.textContent = item;
+                FourthAgeGroupStukke.appendChild(option);
+            });
+
+        });
+
+        //13 jaar tot 16 jaar: Puzzle Stuk function => Prys vir puzzle stukke
+        FourthAgeGroupStukke.addEventListener("change", function () {
+            const selectedValue = this.value;
+            const PriceValue = document.getElementById("selected-price_13j_16j");
+            const AmountSelection = document.getElementById("OrderNumber_13j_16j");
+
+            PriceValue.textContent = '--';
+            AmountSelection.value = 0;
+ 
+            if (!selectedValue) return; 
+
+            PriceValue.textContent = FourthAgeGroupStukPrys[selectedValue];
+            AmountSelection.value = 1;
+
+            let newValue = "";
+
+            if (selectedValue.includes("(A4)"))
+            {
+                newValue = "A4";
+            }else if (selectedValue.includes("(A5)"))
+            {
+                newValue = "A5";
+            }
+
+            const imagePath = "http://pleegsorg.org.za/wp-content/uploads/sites/5/2026/04/H_" +  FourthAgeGroupTema.value + "_" + newValue + ".jpeg";
+
+            popupImage.src = imagePath;
+            popupWindow.style.display = "flex";
+
+        });
+
+        //13 jaar tot 16 jaar function: 
+        function FourthAgeGroupSubmit () {
+
+            const AmountSelected = document.getElementById("OrderNumber_13j_16j");
+            const PriceValue = document.getElementById("selected-price_13j_16j");
+            const TotalAmount = document.getElementById("TotalAmount");
+            const Table = document.getElementById("TotalsTable").getElementsByTagName("tbody")[0];
+
+            let Total = parseFloat(TotalAmount.textContent.replace("R ", "")) || 0;
+            let price = parseFloat(PriceValue.textContent) || 0;
+            let Amount = parseInt(AmountSelected.value) || 0;
+
+            const newRow = Table.insertRow();
+
+            const OuderdomsGroep = newRow.insertCell(0);
+            const Tema = newRow.insertCell(1);
+            const Grootte = newRow.insertCell(2);
+            const StukTelling = newRow.insertCell(3);
+            const Hoeveelheid = newRow.insertCell(4);
+            Hoeveelheid.className = "editable";
+            const EendheidsPrys = newRow.insertCell(5);
+            EendheidsPrys.className = "value";
+            const Prys = newRow.insertCell(6);
+            Prys.className = "priceEdit";
+
+            if (FourthAgeGroupTema[FourthAgeGroupTema.selectedIndex].textContent.includes("-- Kies `n Tema --")) 
+            {   
+                
+                alert("Kies `n Tema om voort te gaan");
+                return;
+
+            }
+
+            if (FourthAgeGroupStukke[FourthAgeGroupStukke.selectedIndex].textContent.includes("-- Kies Stuk Telling --"))
+            {
+
+                alert("Kies die hoeveelheid stukke vir die legkaart om voort te gaan");
+                return;
+
+            }
+
+            OuderdomsGroep.innerHTML = '13 jaar tot 16 jaar';
+            Tema.innerHTML = FourthAgeGroupTema[FourthAgeGroupTema.selectedIndex].textContent;
+            Grootte.innerHTML = 'Karton Legkaart'
+            StukTelling.innerHTML = FourthAgeGroupStukke[FourthAgeGroupStukke.selectedIndex].textContent;
+            Hoeveelheid.innerHTML = AmountSelected.value;
+            EendheidsPrys.innerHTML = "R " + PriceValue.textContent;
+            Prys.innerHTML = "R " + (price * Amount);
+
+            FourthAgeGroupTema.selectedIndex = 0;
+            FourthAgeGroupStukke.innerHTML = '<option value="">-- Kies Stuk Telling --</option>';
+
+            PriceValue.textContent = '--';
+            AmountSelected.value = 0;
+
+            TotalAmount.textContent = "R " + (Total + (price * Amount));
+
+        }
+
+        function Bestelling () {
+            const email = document.getElementById("buyerEmail").value.trim();
+            const name = document.getElementById("buyerName").value.trim();
+            const phone = document.getElementById("buyerPhone").value.trim();
+            const totalAmount = document.getElementById("TotalAmount").textContent;
+            const Table = document.getElementById("TotalsTable");
+            const Aflewering = document.getElementById("buyerAddress").value;
+
+            let valid = true;
+
+            ["buyerName", "buyerEmail", "buyerPhone", "buyerAddress"].forEach(id => {
+                const el = document.getElementById(id)
+                el.classList.remove("input-error");
+            });
+
+            document.querySelectorAll(".error-msg").forEach(e => e.textContent = "");
+
+            let orderDetails = '';
+
+            if (!name)
+            {
+                showError("buyerName", "Voer asseblied u volle naam in.");
+                valid = false;
+
+            }  
+
+            if (!email.includes("@") || !email.includes("."))
+            {
+
+                showError("buyerEmail", "Voer asseblief 'n geldige e-posadres in.");
+                valid = false;
+
+            }   
+
+            if (!phone || phone.length < 10){
+                showError("buyerPhone", "Voer asseblief 'n geldige telefoonnommer in.");
+                valid = false;
+            }
+
+            if (!Aflewering){
+                showError("buyerAddress", "Voer asseblief u afleweringsadres in.");
+                valid = false;
+            }
+
+            if (!valid) return;
+
+            if (totalAmount == "R 80")
+            {
+
+                return;
+
+            }
+
+            for (let i = 0; i <= Table.tBodies[0].rows.length - 1; i++) {
+                orderDetails += `• ${Table.tBodies[0].rows[i].cells[4].textContent} X ${Table.tBodies[0].rows[i].cells[3].textContent} ${Table.tBodies[0].rows[i].cells[2].textContent} van ${Table.tBodies[0].rows[i].cells[1].textContent} vir ${Table.tBodies[0].rows[i].cells[0].textContent}: ${Table.tBodies[0].rows[i].cells[6].textContent}\n`;
+            }
+
+            orderDetails += `• Aflewering: R 80`;
+
+            const emailBody = encodeURIComponent(
+
+                `Nuwe bestelling van: ${name}
+                
+                E-pos: ${email}
+                
+                Tel: ${phone}
+
+                Aflewerings Adres: ${Aflewering}
+
+                Totale bedrag: ${totalAmount}
+
+                Datum: ${new Date().toLocaleDateString('af-ZA')}
+
+                * Onthou om die PDF aan te heg.*
+
+                BESTELLING BESONDERHEDE:
+
+                ${orderDetails}
+
+
+                Die PDF aanhangsel bevat die volledige bewys van betaling.
+                
+            `);
+
+            document.location = "mailto:andries@rentgau.co.za" + 
+                                "?subject=Nuwe%20Legkaart%20Bestelling" +
+                                "&bcc=sonneblomgogga@gmail.com" +
+                                "&body="+emailBody;
+
+        }
+
+        function checkBoxClicked(cb) {
+            const OrderButton = document.getElementById("SubmitOrder");
+
+            if (cb.checked) {
+                OrderButton.disabled = false;
+            }else{
+                OrderButton.disabled = true;
+            }
+
+        }
+
+        document.getElementById("closePopup").addEventListener("click", () => {
+            popupWindow.style.display = "none";
+        });
+
+        window.addEventListener("click", (e) => {
+            if (e.target === popupOverlay)
+            {
+
+                popupWindow.style.display = "none";
+            
+            }
+        });
+
+        function showError(inputID, message) {
+            const input = document.getElementById(inputID);
+            const errorBox = document.getElementById("error-" + inputID.replace("buyer", "").toLowerCase());
+            
+            input.classList.add("input-error");
+            input.classList.remove("input-success");
+
+            if (errorBox) {
+                errorBox.textContent = message;
+            }
+
+        }
+        
+        let editing = false;
+
+        function ChangeOrder()
+        {
+
+            if (editing) {
+                alert("Klaar besig om bestelling te verander");
+                return;
+            }
+
+                editing = true;
+
+                const table = document.getElementById("TotalsTable").getElementsByTagName("tbody")[0];
+
+                for (let i = 0; i < table.rows.length; i++) {
+                    const row = table.rows[i];
+
+                    const editingCell = row.querySelector(".editable");
+                    const priceUpdate = row.querySelector(".priceEdit");
+                    const priceValue = row.querySelector(".value");
+                    
+                    let currentValue = editingCell.textContent.trim();
+
+                    const input = document.createElement("input");
+                    input.type = "number";
+                    input.value = currentValue;
+                    input.min = 0;
+                    input.max = 100;
+                    input.step = 1;
+
+                    input.addEventListener("input", function() {
+                        const itemNumber = Number(this.value);
+                        const price = Number(priceValue.textContent.replace(/[^\d.-]/g, ""));
+                        const newTotal = itemNumber * price
+
+                        priceUpdate.textContent = "R " + newTotal;
+
+                        let finalPrice = 0;
+
+                        for (let row of table.rows) {
+
+                            const rowPrice = row.querySelector(".priceEdit");
+
+                            if (!rowPrice)
+                                continue;
+
+                            const price = Number(rowPrice.textContent.replace(/[^\d.-]/g, ""));
+
+                            finalPrice += price;
+
+                        }
+
+                        const TotalAmount = document.getElementById("TotalAmount");
+
+                        finalPrice += 80;
+                        TotalAmount.textContent = "R " + finalPrice;
+
+                    });
+
+                    editingCell.textContent = "";
+                    editingCell.appendChild(input);
+                    
+                }
+
+        }
+
+        function SaveOrder()
+        {
+
+            if (!editing) {
+                alert("Bestelling was nie verander nie");
+                return;
+            }
+
+            editing = false;
+
+            const table = document.getElementById("TotalsTable").getElementsByTagName("tbody")[0];
+
+            for (let i = table.rows.length - 1; i >= 0; i--) {
+                const row = table.rows[i];
+
+                const editingCell = row.querySelector(".editable")
+                const input = editingCell.querySelector("input");
+                    
+                let currentValue = input.value;
+
+                input.remove();
+
+                if (currentValue == 0) {
+                    table.rows[i].remove();
+                    continue;
+                }
+
+                editingCell.textContent = currentValue;
+                    
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
